@@ -1,0 +1,28 @@
+# Derleme çıktıları
+bin/
+obj/
+
+# Rider ayarları
+/.idea
+*.user
+*.DotSettings.user
+
+# macOS dosyaları
+.DS_Store
+
+# Gizli bilgiler (şifre, bağlantı cümlesi, API anahtarı)
+.env
+appsettings.*.local.json
+
+# Yerel veritabanı dosyaları (SQLite kullanırsan)
+*.db
+*.db-shm
+*.db-wal
+
+# Log dosyaları
+*.log
+logs/
+
+# Kişisel notlar
+/rehber
+/rehber2

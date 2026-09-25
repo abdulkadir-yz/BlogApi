@@ -1,5 +1,7 @@
+using System.Security.Claims;
 using BlogApi.Dtos.Posts;
 using BlogApi.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlogApi.Endpoints;
 
@@ -32,11 +34,13 @@ public static class PostEndpoints
         .ProducesProblem(StatusCodes.Status404NotFound);
 
         // POST /posts
-        group.MapPost("/", async (CreatePostDto createPostDto, IPostService postService, HttpContext context) =>
+        group.MapPost("/", [Authorize] async (CreatePostDto createPostDto, IPostService postService, HttpContext context, ClaimsPrincipal user) =>
         {
             try
             {
-                var post = await postService.CreateAsync(createPostDto.UserId, createPostDto.Title, createPostDto.Content);
+                // userId artık body'den değil, JWT içindeki "sub" claim'inden geliyor
+                var userId = Guid.Parse(user.FindFirstValue(ClaimTypes.NameIdentifier)!);
+                var post = await postService.CreateAsync(userId, createPostDto.Title, createPostDto.Content);
                 var postDto = new PostResponseDto(post.Id, post.UserId, post.Title, post.Content, post.PublishedAt);
 
                 var location = $"{context.Request.Scheme}://{context.Request.Host}/posts/{post.Id}";

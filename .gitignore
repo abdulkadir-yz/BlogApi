@@ -13,6 +13,9 @@ obj/
 # Gizli bilgiler (şifre, bağlantı cümlesi, API anahtarı)
 .env
 appsettings.*.local.json
+blog*
+dotnet-tools.json
+
 
 # Yerel veritabanı dosyaları (SQLite kullanırsan)
 *.db
@@ -26,3 +29,7 @@ logs/
 # Kişisel notlar
 /rehber
 /rehber2
+/rehber3
+/rehber4
+
+/WBS-Class
